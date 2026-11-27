@@ -9,7 +9,7 @@ const input = Array.isArray(args.shortcutParameter)
   : String(args.shortcutParameter ?? "");
 const post = input.match(postPattern);
 if (!post) {
-  throw new Error("공개 X 게시물 링크를 공유해 주세요.");
+  throw new Error("공개 트위터 게시물 링크를 공유해 주세요.");
 }
 
 const request = new Request(endpoint + post[1]);

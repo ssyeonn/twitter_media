@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the unsigned XKeep workflow for Apple Shortcuts."""
+"""Build the unsigned TwitterKeep workflow for Apple Shortcuts."""
 
 import plistlib
 from contextlib import contextmanager
@@ -67,7 +67,7 @@ class Workflow:
     def alert(self, message):
         self.add(
             "alert",
-            WFAlertActionTitle="엑스킵",
+            WFAlertActionTitle="TwitterKeep",
             WFAlertActionMessage=message,
             WFAlertActionCancelButtonShown=False,
         )
@@ -100,7 +100,7 @@ def build():
     flow = Workflow()
     source = {"Type": "ExtensionInput", "VariableName": "ShortcutInput"}
     matches = flow.match(source, POST, "게시물 링크")
-    flow.require(matches, "공개 X 게시물 링크를 공유하거나 클립보드에 복사해 주세요.")
+    flow.require(matches, "공개 트위터 게시물 링크를 공유하거나 클립보드에 복사해 주세요.")
     link = flow.first(matches, "첫 게시물 링크")
     ids = flow.match(link, r"[0-9]+$", "게시물 ID")
     post_id = flow.first(ids, "첫 게시물 ID")
@@ -173,5 +173,5 @@ def build():
 
 
 if __name__ == "__main__":
-    output = Path(__file__).with_name("XKeep-unsigned.shortcut")
+    output = Path(__file__).with_name("TwitterKeep-unsigned.shortcut")
     output.write_bytes(plistlib.dumps(build(), fmt=plistlib.FMT_BINARY))
